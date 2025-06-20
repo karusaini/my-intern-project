@@ -9,25 +9,15 @@ import { useRouter } from "next/navigation";
 import { useItemStore } from "@/app/store/itemStore";
 import { Card, CardContent } from "@/components/ui/card";
 
-// ✅ Helper function to convert image file to base64
-function toBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-}
-
 export default function AddItemPage() {
   const [success, setSuccess] = useState(false);
-  const [coverImage, setCoverImage] = useState<string>("");
-  const [additionalImages, setAdditionalImages] = useState<string[]>([]);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [additionalImages, setAdditionalImages] = useState<File[]>([]);
 
   const addItem = useItemStore((state) => state.addItem);
   const router = useRouter();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     const name = e.target["name"].value;
@@ -43,8 +33,8 @@ export default function AddItemPage() {
       name,
       type,
       description,
-      cover: coverImage,
-      images: additionalImages,
+      cover: URL.createObjectURL(coverImage),
+      images: additionalImages.map((file) => URL.createObjectURL(file)),
     };
 
     addItem(newItem);
@@ -102,12 +92,9 @@ export default function AddItemPage() {
                 type="file"
                 accept="image/*"
                 className="mt-1"
-                onChange={async (e) => {
+                onChange={(e) => {
                   const file = e.target.files?.[0];
-                  if (file) {
-                    const base64 = await toBase64(file);
-                    setCoverImage(base64);
-                  }
+                  if (file) setCoverImage(file);
                 }}
               />
             </div>
@@ -119,22 +106,16 @@ export default function AddItemPage() {
                 multiple
                 accept="image/*"
                 className="mt-1"
-                onChange={async (e) => {
+                onChange={(e) => {
                   const files = e.target.files;
-                  if (files) {
-                    const promises = Array.from(files).map((file) =>
-                      toBase64(file)
-                    );
-                    const base64Images = await Promise.all(promises);
-                    setAdditionalImages(base64Images);
-                  }
+                  if (files) setAdditionalImages(Array.from(files));
                 }}
               />
             </div>
 
             <Button
               type="submit"
-              className="w-full text-lg font-medium py-6 mt-4"
+              className="w-full text-lg font-medium py-6 mt-4 cursor-pointer"
             >
               Add Item
             </Button>
