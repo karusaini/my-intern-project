@@ -21,7 +21,6 @@ export function ItemDetailModal({ item, onClose }: any) {
   const [emailSent, setEmailSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // form refs
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
@@ -78,7 +77,6 @@ export function ItemDetailModal({ item, onClose }: any) {
           <p className="text-base text-gray-700">{item.description}</p>
         </div>
 
-        {/* ✅ Carousel */}
         <div ref={sliderRef} className="keen-slider rounded-xl overflow-hidden">
           {item.images.map((img: string, idx: number) => (
             <div
@@ -97,7 +95,6 @@ export function ItemDetailModal({ item, onClose }: any) {
           ))}
         </div>
 
-        {/* ✅ Enquiry Form */}
         <div className="space-y-4">
           <div>
             <Label htmlFor="name">Your Name</Label>

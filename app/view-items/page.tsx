@@ -1,4 +1,3 @@
-// app/view-items/page.tsx
 "use client";
 
 import { useItemStore } from "@/app/store/itemStore";
