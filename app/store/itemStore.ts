@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface Item {
+  id: string; // 🔑 unique ID needed
   name: string;
   type: string;
   description: string;
@@ -12,6 +13,8 @@ interface Item {
 interface ItemStore {
   items: Item[];
   addItem: (item: Item) => void;
+  updateItem: (item: Item) => void;
+  deleteItem: (id: string) => void;
 }
 
 export const useItemStore = create<ItemStore>()(
@@ -20,7 +23,17 @@ export const useItemStore = create<ItemStore>()(
       items: [],
       addItem: (item) =>
         set((state) => ({
-          items: [...state.items, item],
+          items: [...state.items, { ...item, id: crypto.randomUUID() }],
+        })),
+      updateItem: (updatedItem) =>
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === updatedItem.id ? updatedItem : item
+          ),
+        })),
+      deleteItem: (id) =>
+        set((state) => ({
+          items: state.items.filter((item) => item.id !== id),
         })),
     }),
     {
