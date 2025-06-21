@@ -37,7 +37,11 @@ export default function AddItemPage() {
       images: additionalImages.map((file) => URL.createObjectURL(file)),
     };
 
-    addItem(newItem);
+    addItem({
+      id: crypto.randomUUID(), // generate unique ID
+      ...newItem,
+    });
+
     setSuccess(true);
 
     setTimeout(() => {
