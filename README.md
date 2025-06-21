@@ -3,8 +3,6 @@
 This is a simple React + Next.js app built for the internship assignment by **AMRR TechSols Pvt Ltd**.
 It includes functionality to **add** and **view items**, with additional features such as a **carousel**, **enquiry form with email**, and responsive UI.
 
-## 🔧 Features Implemented
-
 ### ✅ Add Item Page
 
 - Add new item via form inputs:
@@ -35,7 +33,6 @@ It includes functionality to **add** and **view items**, with additional feature
 
 ## 🧪 Tech Stack
 
-- **Next.js 14 (App Router)**
 - **Tailwind CSS** for styling
 - **Zustand** for state management (in-memory store)
 - **EmailJS** for email sending
@@ -108,13 +105,6 @@ emailjs.send(
 
 - No backend/API used due to local storage quota limits
 - Fully responsive and mobile-friendly UI
-
----
-
-## 👤 Author
-
-- Developed by Karina Saini
-- For internship assignment (June 2025)
 
 ---
 
