@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GearNest - Internship Assignment Project
 
-## Getting Started
+This is a simple React + Next.js app built for the internship assignment by **AMRR TechSols Pvt Ltd**.
+It includes functionality to **add** and **view items**, with additional features such as a **carousel**, **enquiry form with email**, and responsive UI.
 
-First, run the development server:
+## 🔧 Features Implemented
+
+### ✅ Add Item Page
+
+- Add new item via form inputs:
+  - Item Name
+  - Item Type (Shirt, Pant, Shoes, etc.)
+  - Description
+  - Cover Image
+  - Additional Images (Multiple)
+- Base64 image handling (for frontend-only submission)
+- Success message on submission
+
+### ✅ View Items Page
+
+- Displays all items (static + user added)
+- Click on any item to view full details in a modal
+- Includes:
+  - Title, Type, Description
+  - Image carousel using **keen-slider**
+  - Enquiry form (name, email, message)
+  - Sends email using **EmailJS**
+
+### ✅ Bonus Features
+
+- ✅ Email sent to static email using EmailJS API
+- ❌ No external DB/API used (local memory only due to submission scope)
+
+---
+
+## 🧪 Tech Stack
+
+- **Next.js 14 (App Router)**
+- **Tailwind CSS** for styling
+- **Zustand** for state management (in-memory store)
+- **EmailJS** for email sending
+- **keen-slider** for image carousel
+- **TypeScript**
+
+---
+
+## 🚀 How to Run Locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repo
+https://github.com/karusaini/my-intern-project
+# Install dependencies
+ or npm install # or yarn install
+
+# Run the dev server
+npm run dev # or yarn dev
+
+# Open in browser
+http://localhost:3000
+
+# Live Link Project
+https://my-intern-project-psi.vercel.app/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Folder Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+/app
+  ├── add-item         # Add Item page
+  ├── view-items       # View Items page
+  └── store            # Zustand store (in-memory)
+/components
+  └── ItemDetailModal  # Modal with image carousel and email form
+/public
+  └── ...              # Static assets (if any)
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 💌 EmailJS Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To make the enquiry form work:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Go to https://emailjs.com
+2. Create a service, email template, and public key
+3. Replace the values in `ItemDetailModal.tsx`:
 
-## Deploy on Vercel
+```ts
+emailjs.send(
+  "your_service_id",
+  "your_template_id",
+  {
+    item_name,
+    item_type,
+    user_name,
+    user_email,
+    user_message,
+  },
+  "your_public_key"
+);
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Notes
+
+- No backend/API used due to local storage quota limits
+- Fully responsive and mobile-friendly UI
+
+---
+
+## 👤 Author
+
+- Developed by Karina Saini
+- For internship assignment (June 2025)
+
+---
+
+Good luck and thank you! 🙌
